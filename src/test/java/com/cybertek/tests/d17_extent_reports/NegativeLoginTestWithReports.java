@@ -38,5 +38,7 @@ public class NegativeLoginTestWithReports extends TestBase {
         extentLogger.info("Verify page url");
         Assert.assertEquals(driver.getCurrentUrl(), "https://google.com/");
         extentLogger.pass("PASS: Wrong username test");
+        System.out.println("===========================");
+
     }
 }
