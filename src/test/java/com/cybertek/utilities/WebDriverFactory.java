@@ -20,12 +20,10 @@ public class WebDriverFactory {
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
                 break;
-
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
                 driver = new FirefoxDriver();
         }
-
         return driver;
     }
 

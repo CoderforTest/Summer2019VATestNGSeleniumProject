@@ -17,26 +17,25 @@ public class ListOfElementsTest {
         driver.get("http://practice.cybertekschool.com/multiple_buttons");
 
         List<WebElement> buttons = driver.findElements(By.tagName("button"));
+
         System.out.println(buttons.size());
 
         Assert.assertEquals(buttons.size(), 6);
 
-// we are iterating through the list of elements
-        for (WebElement button : buttons) {
+        // we are iterating though the list of elements
+        // print the text of each element
+        for (WebElement button: buttons) {
             System.out.println(button.getText());
         }
-
-
-        System.out.println("===================================");
-
-        for(WebElement button : buttons){
-            System.out.println(buttons);
-        }
-        System.out.println("===================================");
-
-
-
     }
 
+    @Test
+    public void test2(){
+        WebDriver driver = WebDriverFactory.getDriver("chrome");
+        driver.get("http://practice.cybertekschool.com/multiple_buttons");
 
+        List<WebElement> buttons = driver.findElements(By.tagName("utton"));
+        System.out.println(buttons.size());
+
+    }
 }

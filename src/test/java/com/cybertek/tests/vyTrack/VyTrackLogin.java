@@ -1,60 +1,67 @@
 package com.cybertek.tests.vyTrack;
 
 import com.cybertek.utilities.WebDriverFactory;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+import java.util.concurrent.TimeUnit;
 
 public class VyTrackLogin {
-    public static void main(String[] args) throws InterruptedException {
+    private WebDriver driver;
+    private WebDriverWait wait;
+    @Test
+    public void test(){
+        // TODO OPEN BROWSER
+        driver = WebDriverFactory.getDriver("chrome");
+        //explicit wait
+        wait = new WebDriverWait(driver, 10);
+        //implicit wait
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //maximize browser
+        driver.manage().window().maximize();
 
-/*
-Go to the login page of VyTrack
-• Enter valid credential (can be any role)
-• Click login button
-• Verify that the user login successfully
 
-By.name(“_username”)
-By.name(“_password”)
-By.id(“_submit”)
-     */
+        // TODO LOGIN
+        driver.get("https://qa1.vytrack.com/");
+        driver.findElement(By.id("prependedInput")).sendKeys("storemanager85");
+        driver.findElement(By.id("prependedInput2")).sendKeys("UserUser123", Keys.ENTER);
 
-        // calling getDriver method from WebDriverFactory file of utilities package.
-        WebDriver driver = WebDriverFactory.getDriver("chrome");
 
-        // go to https://qa2.vytrack.com/user/login
-        driver.get("https://qa2.vytrack.com/user/login");
+        // TODO CHANGE MENU
+        WebElement activitiesElement = driver.findElement(By.linkText("Activities"));
 
-        // find Username box
-        WebElement userNameInput = driver.findElement(By.name("_username"));
+//        waitForLoader();
 
-        // enter Username
-        String expectedUserName = "user19";
-        userNameInput.sendKeys(expectedUserName);
+        wait.until(ExpectedConditions.visibilityOf(activitiesElement));
+        wait.until(ExpectedConditions.elementToBeClickable(activitiesElement));
 
-        // find Password box
-        WebElement passwordInput = driver.findElement(By.name("_password"));
 
-        // enter Password
-        String expectedPassword = "UserUser123";
-        passwordInput.sendKeys(expectedPassword);
+        activitiesElement.click();
+        WebElement calendarEventsElement = driver.findElement(By.linkText("Calendar Events"));
+        wait.until(ExpectedConditions.visibilityOf(calendarEventsElement));
+        wait.until(ExpectedConditions.elementToBeClickable(calendarEventsElement));
+        calendarEventsElement.click();
+        waitForLoader();
+        // do other things
+    }
 
-        // press click button
-        WebElement enterCredentials = driver.findElement(By.id("_submit"));
-        enterCredentials.click();
-
-   String expectedURLResult = "https://qa2.vytrack.com/";
-   String actualURLResult = driver.getCurrentUrl();
-
-        if (expectedURLResult.equals(actualURLResult)) {
-            System.out.println("PASS");
-        }else {
-            System.out.println("FAIL");
+    private void waitForLoader() {
+        if(driver.findElements(By.cssSelector("div[class='loader-mask shown']")).size()>0) {
+            WebElement loaderMask = driver.findElement(By.cssSelector("div[class='loader-mask shown']"));
+            wait.until(ExpectedConditions.invisibilityOf(loaderMask));
         }
+    }
 
-        // quit from chrome browser
+    @AfterMethod
+    public void close() throws InterruptedException {
+        Thread.sleep(2000);
         driver.quit();
-
     }
 }

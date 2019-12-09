@@ -7,27 +7,22 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 public class DisabledElementTest {
-
     @Test
-    public void test1() throws InterruptedException {
+    public void test1(){
         WebDriver driver = WebDriverFactory.getDriver("chrome");
         driver.get("http://practice.cybertekschool.com/radio_buttons");
 
         WebElement green = driver.findElement(By.id("green"));
 
-        System.out.println("Is element enabled: " + green.isEnabled());
+        System.out.println("Is element enabled: "+ green.isEnabled());
 
         green.click();
 
         driver.get("http://practice.cybertekschool.com/dynamic_controls");
-        WebElement input = driver.findElement(By.cssSelector("#input-example > button"));
-        System.out.println("Is element enabled: " + input.isEnabled());
+        WebElement input = driver.findElement(By.cssSelector("#input-example>input"));
 
-        input.sendKeys("lfasdfelf");
+        System.out.println("Is element enabled: "+input.isEnabled());
 
-        Thread.sleep(3000);
-
-        driver.quit();
-
+        input.sendKeys("dfaslkhjsdfglkj");
     }
 }

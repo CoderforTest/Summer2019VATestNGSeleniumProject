@@ -9,17 +9,35 @@ import org.testng.annotations.Test;
 
 public class AttributesTest {
 
-        @Test
-        public void test1() {
-            WebDriver driver = WebDriverFactory.getDriver("chrome");
-            driver.get("http://practice.cybertekschool.com/radio_buttons");
+    @Test
+    public void test1(){
+        WebDriver driver = WebDriverFactory.getDriver("chrome");
+        driver.get("http://practice.cybertekschool.com/radio_buttons");
 
-            WebElement blue = driver.findElement(By.id("blue"));
-            System.out.println(blue.getAttribute("name"));
+        WebElement blue = driver.findElement(By.id("blue"));
 
-            System.out.println(blue.getAttribute("outerHTML"));
-            System.out.println(blue.getAttribute("innerHTML"));
+        // get the value of attribute "name"
+        System.out.println(blue.getAttribute("name"));
 
-            driver.quit();
-        }
+        // get the value of attribute "id"
+        System.out.println(blue.getAttribute("id"));
+
+        // we get null if the element does not have that attribute
+        System.out.println(blue.getAttribute("href"));
+
+        // it gives empty string
+        System.out.println(blue.getAttribute("class"));
+
+        // it returns true false
+        System.out.println(blue.getAttribute("checked"));
+
+        // returns the html information of that element
+        System.out.println(blue.getAttribute("outerHTML"));
+
+        // returns the text of element (in certain cases)
+        System.out.println(blue.getAttribute("value"));
+
+        // returns the text of element (in certain cases)
+        System.out.println(blue.getAttribute("innerHTML"));
     }
+}
